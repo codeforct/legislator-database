@@ -1,0 +1,17 @@
+language: node_js
+
+node_js: lts/*
+
+env:
+  global:
+    secure: hMUbzWx99AVOYLp/TIHY4u2iE8I+KKF8MJ3rbOu1BNT7sVXKBHE0uxUj8j533yVCk9O9v2JHJq22jgtSvrPLzaBT6vPs39PTVmS0VXAabLay12EzYj0odg8YPUPBCOmC19ZrbaZKOdSDijnd51TSU+TAqlILTQfi/nAg1IJbBl3J7vviOPx8Lva+culVEdx+cBImQMeGhV9++syXJzAOM9Gtb8P+w/HTzwDO8b6Vet/AVkZDCyjBy+SYJbgE26ieE4QBodMaiB5J4nLq2/40yqOGVf126qEQmRqVslS+VE8WeaATdGWFRbbHLZi+duM26UdPzqd3CGKAOThAr7WvmsJJqo1p+C6kf9N1vCkyzmdlnjeqGRA9VQA920KYB87kkUmYxTSK4UNa+3NIA0/OxnVRQBo1dcB/yJ6606L+151IFsIHOMG+HCBm741716IgWZfJAkyN+dOJhupcgsX+yGW/qvPNYe/Nku2v4JRLehXFZ0QlMynm+7+qu0vsyU5zLn96VoCqve6ceKQ1CkT3wX5p/QxCnX/CHFeYoxPStXZ3VDOUqzIvRZFg7NbJOnVcf1WCagNXTJBGRCQq3/geI6vT7rcHP2qzkwOcNfD21u19UCobeJVTG7rTx5p6vgwDMhEMy4NxCsF1wsVEo0mzwO4ti+JKG2x3kydxKwl6VVk=
+
+script: node generate.js
+
+after_success:
+  - git config user.email "travis-ci@users.noreply.github.com"
+  - git config user.name "Travis CI"
+  - git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/codeforct/legislator-database.git
+  - git checkout master
+  - git add .
+  - git diff --quiet && git diff --staged --quiet || (git commit -m "CI Build ${TRAVIS_BUILD_NUMBER}"; git push origin master)
