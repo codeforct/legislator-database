@@ -2,7 +2,7 @@ const fsp = require('fs').promises;
 const axios = require('axios');
 
 axios.get('https://legislator-database-api.glitch.me')
-  .then((data) => {
+  .then(({ data }) => {
     return fsp.writeFile('data/latest.json', JSON.stringify(data));
   })
   .then(() => {
