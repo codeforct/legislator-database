@@ -2,9 +2,8 @@ name: Generate data file
 
 on:
   schedule:
-  - cron: "0 0 * * 0"
-  repository_dispatch:
-    types: rebuild
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
 
 jobs:
   data:
